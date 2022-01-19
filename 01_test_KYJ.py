@@ -8,7 +8,7 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 
-raw_data = pd.read_csv('../Crude_Oil_LSTM/datasets/Crude Oil WTI Futures Historical Data.csv')
+raw_data = pd.read_csv('./datasets/Crude Oil WTI Futures Historical Data.csv')
 print(raw_data.head())
 print(raw_data.tail())
 print(raw_data.info())

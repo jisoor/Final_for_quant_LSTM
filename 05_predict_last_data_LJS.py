@@ -14,7 +14,7 @@ X_train, X_test, Y_train, Y_test = np.load('./models/crude_oil_scaled_data.npy',
 model = load_model('./models/crude_oil_model_1.h5')
 
 # 마지막 30개 데이터 예측 시키기 ,  30개의 데이터가 필요
-raw_data = pd.read_csv('../Crude_Oil_LSTM/datasets/Clear_Crude_Oil_Data.csv')
+raw_data = pd.read_csv('./datasets/Clear_Crude_Oil_Data.csv')
 raw_data['Date'] = pd.to_datetime(raw_data['Date'])
 raw_data.set_index('Date', inplace=True) # 날짜대로 슬라이싱 하고싶으면 index 만 가능 column은 안됌
 raw_data.info()
@@ -34,7 +34,7 @@ print(last_test_data.head())
 last_test_data.info()
 
 # minmaxscaler 어떻게 파일 가져오지??
-with open('../Crude_Oil_LSTM/models/minmaxscaler_oil.pickle', 'rb') as f:
+with open('./models/minmaxscaler_oil.pickle', 'rb') as f:
   minmaxscaler = pickle.load(f)
 
 scaled_last_test_data = minmaxscaler.transform(last_test_data)

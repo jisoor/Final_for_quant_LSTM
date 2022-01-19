@@ -20,7 +20,7 @@ print(scaled_data[:5])
 sequence_X = []
 sequence_Y = []
 #minmaxscaler 를 pickle 담구기.
-with open('../Crude_Oil_LSTM/models/minmaxscaler_oil.pickle', 'wb') as f:
+with open('./models/minmaxscaler_oil.pickle', 'wb') as f:
     pickle.dump(minmaxscaler, f)
 
 
