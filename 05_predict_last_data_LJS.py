@@ -15,23 +15,25 @@ model = load_model('./models/crude_oil_model_1.h5')
 
 # 마지막 30개 데이터 예측 시키기 ,  30개의 데이터가 필요
 raw_data = pd.read_csv('./datasets/Clear_Crude_Oil_Data.csv')
-raw_data['Date'] = pd.to_datetime(raw_data['Date'])
-raw_data.set_index('Date', inplace=True) # 날짜대로 슬라이싱 하고싶으면 index 만 가능 column은 안됌
+raw_data['Date'] = pd.to_datetime(raw_data['Date']) # Date열을 datetime으로 바꾼다.
+raw_data.set_index('Date', inplace=True) # 날짜대로 슬라이싱 하고싶으면 index 만 가능 column은 안됨
 raw_data.info()
 
+###################
 print(raw_data[:5])
-last_data = raw_data['2021-12-08':][['Price']]
+last_data = raw_data['2021-12-08':][['Price']] # 마지막 30개 가져와서 Dataframe으로 만들기
 print(last_data)
 print(len(last_data))
 last_data.info() #info는 프린트 안찍어도 ok
 
-last_30 = raw_data['2021-10-27':'2021-12-07'][['Price']] # 12-08부터 30개 주욱 예측
+last_30 = raw_data['2021-10-27':'2021-12-07'][['Price']] # 12-08부터 30개 주욱 모두 예측
 # raw_data.iloc[-30:][['Price]]
 last_30.info()
 
 last_test_data = pd.concat([last_30, last_data])
 print(last_test_data.head())
 last_test_data.info()
+################ 이렇게 안하고 그냥, last_data = raw_data[-60:][['Price']] 해도 됨.
 
 # minmaxscaler 어떻게 파일 가져오지??
 with open('./models/minmaxscaler_oil.pickle', 'rb') as f:
@@ -66,6 +68,27 @@ print(tomorrow_predict) #minmaxscale 된값으로 나온담.
 
 tomorrow_predicted_value = minmaxscaler.inverse_transform(tomorrow_predict) # inverse_transform하면 minmaxscaling한 값 다시 원래 값으로 복원시켜줌
 print('$ %2f '%tomorrow_predicted_value[0][0])
+
+##### 내일 모레 예측
+tmr_scaled_last_test_data = np.append(scaled_last_test_data, [tomorrow_predict])
+print(len(tmr_scaled_last_test_data))
+# 내일 모레 예측
+dat_predict = model.predict(tmr_scaled_last_test_data[-30:].reshape(1, 30, 1))
+print(dat_predict)
+dat_predicted_value = minmaxscaler.inverse_transform(dat_predict)
+print('dat_value : $ %2f '%dat_predicted_value[0][0])
+
+
+# import pandas as pd
+# data = {'이름': ['이서연', '김민준'], '국어점수': [70, 80], '수학점수': [80, 70]}
+# df = pd.DataFrame(data=data)
+#
+# # 추가할 데이터
+# data_to_insert = {'이름': '장수연', '국어점수': 70, '수학점수': 80}
+#
+# # 데이터 추가해서 원래 데이터프레임에 저장하기
+# df = df.append(data_to_insert, ignore_index=True)
+# print(df)
 
 # 내일 모레 예측
 # dat_predict = model.predict(scaled_last_test_data[-30:].reshape(1, 30, 1))
