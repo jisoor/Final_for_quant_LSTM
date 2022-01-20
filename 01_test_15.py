@@ -17,7 +17,7 @@ df = raw_data.isnull() #False = 데이터가 있음. True = 데이터가 없음
 print(df)
 
 raw_data['Date'] = pd.to_datetime(raw_data['Date'])
-raw_data = raw_data.sort_values('Date', ascending=False)
+raw_data = raw_data.sort_values('Date')
 print(raw_data.head())
 
-raw_data.to_csv('./datasets/Clear_Crude_Oil_Data.csv', index=False)
+raw_data.to_csv('./datasets/Clear_Crude_Oil_Data_15.csv', index=False)

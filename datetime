@@ -1,0 +1,32 @@
+오늘로부터 50일 이후의 일자를 얻기 위해서 datetime.timedelta(days=50) 로 50일을 뜻하는 datetime.timedelta 객체가 필요하다.
+
+>>> diff_days = datetime.timedelta(days=50)
+>>> diff_days
+datetime.timedelta(days=50)
+timedelta에는 days파라미터 외에도 다음과 같은 것들을 사용할 수 있다.
+
+항목	설명
+days	일
+seconds	초
+microseconds	마이크로초
+milliseconds	밀리초 (1밀리초는 1000마이크로초)
+minutes	분
+hours	시간
+weeks	주 (7일을 의미함)
+
+
+
+>>> from datetime import datetime
+>>> datetime.today().strftime('%Y-%m-%d')
+'2021-01-26'
+
+import datetime
+now = datetime.datetime.now()
+print ("Current date and time : ")
+print (now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+# weekday 오늘 요일 뽑기.
+# t = ['월', '화', '수', '목', '금', '토', '일']
+# Today_weekday = datetime.datetime.today().weekday()
+# print('오늘 몇요일 : ', t[Today_weekday])
