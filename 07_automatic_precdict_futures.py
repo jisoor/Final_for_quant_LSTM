@@ -14,13 +14,16 @@ import pickle
 ticker = ''     # ticker은 종목이름을 ticker로 바꾸는 코드 따로 만들기. (유저가 티커만 입력하면 찾아올 수 있게)
 name = 'Gold'
 
-commodity_list = ['Gold', 'Silver']
-currency_list = []
-etf_list = []
-indices_list = []
-futures_list = commodity_list + currency_list + etf_list + indices_list
+# print(investpy.indices.get_index_countries())
 
-#
+commodity_list = investpy.commodities.get_commodities_list()
+print(type(commodity_list))  # list
+currency_list = []   #직접 작성
+etf_list = investpy.etfs.get_etfs_list()
+indices_list = investpy.indices.get_indices_list()
+
+
+
 # if name in commodity_list:
 #     print(investpy.commodities.get_commodity_historical_data(name))
 # elif name in currency_list:
@@ -59,15 +62,17 @@ historical_data.rename(columns={'Close':'Price'}, inplace=True)
 print(historical_data) # 01/04/2008 부터 어제까지의 데이터 가져옴
 
 # price 데이터 그려보기
-plt.plot(historical_data.index , historical_data['Price'])
-plt.show()
+# plt.plot(historical_data.index , historical_data['Price'])
+# plt.show()
 
 # 전처리 시작
 historical_data.info()
 print('null:', historical_data.isnull().sum())
+print(historical_data.isnull().sum()[0])
 
-if historical_data.isnull().sum() != 0:
-   historical_data.fillna(method='ffill', inplace=True) # Nan값처리: 이전값으로 채우기(investing.com에는 결측률이 거의 희박)
+if historical_data.isnull().sum()[0] != 0:
+   historical_data.fillna(method='ffill', inplace=True) # Nan값처리: 이전값으로 채우기(investing.com에는 결측률이 거의 희박하긴 함.)
 
+print(type(historical_data['Date']))
 historical_data['Date'] = pd.to_datetime(historical_data['Date'])
 historical_data = historical_data.sort_values('Date')
