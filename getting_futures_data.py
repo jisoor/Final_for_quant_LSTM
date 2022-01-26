@@ -26,12 +26,12 @@ for num, func in enumerate(func_list):
 # print(investpy.indices.get_index_countries())
 # print(len(investpy.indices.get_index_countries()))
 
-currencies = ['GBP/USD','CAD/USD','USD/JPY','USD/CHF','EUR/USD','AUD/USD','USD/MXN','NZD/USD','USD/ZAR','USD/BRL']
-for currency in currencies:
-    if currency in investpy.currency_crosses.get_currency_crosses_list():
-        print('yes')
-    else:
-        print('no')
+# currencies = ['GBP/USD','CAD/USD','USD/JPY','USD/CHF','EUR/USD','AUD/USD','USD/MXN','NZD/USD','USD/ZAR','USD/BRL']
+# for currency in currencies:
+#     if currency in investpy.currency_crosses.get_currency_crosses_list():
+#         print('yes')
+#     else:
+#         print('no')
 #
 # if 'Mini Hang Seng Index' in investpy.currency_crosses.get_currency_crosses_list():
 #     print('yes')
