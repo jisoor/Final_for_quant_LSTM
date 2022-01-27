@@ -1,0 +1,477 @@
+34
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^GSPC : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^DJI : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^IXIC : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^NYA : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^XAX : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2869 entries, 2010-09-17 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       2869 non-null   float64
+ 1   High       2869 non-null   float64
+ 2   Adj Close  2869 non-null   float64
+dtypes: float64(3)
+memory usage: 89.7 KB
+^BUK100P : None
+2869
+날짜 2010-09-17 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^RUT : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3793 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3793 non-null   float64
+ 1   High       3793 non-null   float64
+ 2   Adj Close  3793 non-null   float64
+dtypes: float64(3)
+memory usage: 118.5 KB
+^VIX : None
+3793
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3807 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3807 non-null   float64
+ 1   High       3807 non-null   float64
+ 2   Adj Close  3807 non-null   float64
+dtypes: float64(3)
+memory usage: 119.0 KB
+^FTSE : None
+3807
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3817 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3817 non-null   float64
+ 1   High       3817 non-null   float64
+ 2   Adj Close  3817 non-null   float64
+dtypes: float64(3)
+memory usage: 119.3 KB
+^GDAXI : None
+3817
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3852 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3852 non-null   float64
+ 1   High       3852 non-null   float64
+ 2   Adj Close  3852 non-null   float64
+dtypes: float64(3)
+memory usage: 120.4 KB
+^FCHI : None
+3852
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3714 entries, 2007-03-30 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3714 non-null   float64
+ 1   High       3714 non-null   float64
+ 2   Adj Close  3714 non-null   float64
+dtypes: float64(3)
+memory usage: 116.1 KB
+^STOXX50E : None
+3714
+날짜 2007-03-30 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3852 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3852 non-null   float64
+ 1   High       3852 non-null   float64
+ 2   Adj Close  3852 non-null   float64
+dtypes: float64(3)
+memory usage: 120.4 KB
+^N100 : None
+3852
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3851 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3851 non-null   float64
+ 1   High       3851 non-null   float64
+ 2   Adj Close  3851 non-null   float64
+dtypes: float64(3)
+memory usage: 120.3 KB
+^BFX : None
+3851
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2196 entries, 2013-03-05 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       2196 non-null   float64
+ 1   High       2196 non-null   float64
+ 2   Adj Close  2196 non-null   float64
+dtypes: float64(3)
+memory usage: 68.6 KB
+IMOEX.ME : None
+2196
+날짜 2013-03-05 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3682 entries, 2007-01-04 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3682 non-null   float64
+ 1   High       3682 non-null   float64
+ 2   Adj Close  3682 non-null   float64
+dtypes: float64(3)
+memory usage: 115.1 KB
+^N225 : None
+3682
+날짜 2007-01-04 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3714 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3714 non-null   float64
+ 1   High       3714 non-null   float64
+ 2   Adj Close  3714 non-null   float64
+dtypes: float64(3)
+memory usage: 116.1 KB
+^HSI : None
+3714
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3661 entries, 2007-01-04 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3661 non-null   float64
+ 1   High       3661 non-null   float64
+ 2   Adj Close  3661 non-null   float64
+dtypes: float64(3)
+memory usage: 114.4 KB
+000001.SS : None
+3661
+날짜 2007-01-04 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3661 entries, 2007-01-04 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3661 non-null   float64
+ 1   High       3661 non-null   float64
+ 2   Adj Close  3661 non-null   float64
+dtypes: float64(3)
+memory usage: 114.4 KB
+399001.SZ : None
+3661
+날짜 2007-01-04 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3761 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3761 non-null   float64
+ 1   High       3761 non-null   float64
+ 2   Adj Close  3761 non-null   float64
+dtypes: float64(3)
+memory usage: 117.5 KB
+^STI : None
+3761
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3804 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3804 non-null   float64
+ 1   High       3804 non-null   float64
+ 2   Adj Close  3804 non-null   float64
+dtypes: float64(3)
+memory usage: 118.9 KB
+^AXJO : None
+3804
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3809 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3809 non-null   float64
+ 1   High       3809 non-null   float64
+ 2   Adj Close  3809 non-null   float64
+dtypes: float64(3)
+memory usage: 119.0 KB
+^AORD : None
+3809
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3697 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3697 non-null   float64
+ 1   High       3697 non-null   float64
+ 2   Adj Close  3697 non-null   float64
+dtypes: float64(3)
+memory usage: 115.5 KB
+^BSESN : None
+3697
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3666 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3666 non-null   float64
+ 1   High       3666 non-null   float64
+ 2   Adj Close  3666 non-null   float64
+dtypes: float64(3)
+memory usage: 114.6 KB
+^JKSE : None
+3666
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3696 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3696 non-null   float64
+ 1   High       3696 non-null   float64
+ 2   Adj Close  3696 non-null   float64
+dtypes: float64(3)
+memory usage: 115.5 KB
+^KLSE : None
+3696
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3702 entries, 2007-01-03 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3702 non-null   float64
+ 1   High       3702 non-null   float64
+ 2   Adj Close  3702 non-null   float64
+dtypes: float64(3)
+memory usage: 115.7 KB
+^NZ50 : None
+3702
+날짜 2007-01-03 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3721 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3721 non-null   float64
+ 1   High       3721 non-null   float64
+ 2   Adj Close  3721 non-null   float64
+dtypes: float64(3)
+memory usage: 116.3 KB
+^KS11 : None
+3721
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3694 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3694 non-null   float64
+ 1   High       3694 non-null   float64
+ 2   Adj Close  3694 non-null   float64
+dtypes: float64(3)
+memory usage: 115.4 KB
+^TWII : None
+3694
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3782 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3782 non-null   float64
+ 1   High       3782 non-null   float64
+ 2   Adj Close  3782 non-null   float64
+dtypes: float64(3)
+memory usage: 118.2 KB
+^GSPTSE : None
+3782
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3723 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3723 non-null   float64
+ 1   High       3723 non-null   float64
+ 2   Adj Close  3723 non-null   float64
+dtypes: float64(3)
+memory usage: 116.3 KB
+^BVSP : None
+3723
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3776 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3776 non-null   float64
+ 1   High       3776 non-null   float64
+ 2   Adj Close  3776 non-null   float64
+dtypes: float64(3)
+memory usage: 118.0 KB
+^MXX : None
+3776
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3094 entries, 2007-01-02 to 2019-06-14
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3094 non-null   float64
+ 1   High       3094 non-null   float64
+ 2   Adj Close  3094 non-null   float64
+dtypes: float64(3)
+memory usage: 96.7 KB
+^IPSA : None
+3094
+날짜 2007-01-02 2019-06-14
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3666 entries, 2007-01-02 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       3666 non-null   float64
+ 1   High       3666 non-null   float64
+ 2   Adj Close  3666 non-null   float64
+dtypes: float64(3)
+memory usage: 114.6 KB
+^MERV : None
+3666
+날짜 2007-01-02 2022-01-25
+[*********************100%***********************]  1 of 1 completed
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2965 entries, 2007-01-01 to 2022-01-25
+Data columns (total 3 columns):
+ #   Column     Non-Null Count  Dtype
+---  ------     --------------  -----
+ 0   Open       2965 non-null   float64
+ 1   High       2965 non-null   float64
+ 2   Adj Close  2965 non-null   float64
+dtypes: float64(3)
+memory usage: 92.7 KB
+^TA125.TA : None
+2965
+날짜 2007-01-01 2022-01-25

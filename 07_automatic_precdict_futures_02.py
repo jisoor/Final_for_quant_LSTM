@@ -41,7 +41,7 @@ Yesterday = dt_stamp.strftime('%d/%m/%Y')   # 드디어 변환
 
 # data 다운로드 받는 코드
 if name in commodity_list:
-   historical_data = investpy.commodities.get_commodity_historical_data(name, '01/04/2008', Yesterday)
+   historical_data = investpy.commodities.get_commodity_historical_data(n , Yesterday)
    asset_class = 'commodity'
    asset_func = investpy.commodities.get_commodity_recent_data
 elif name in currency_list:
