@@ -40,9 +40,6 @@ world_indices = ['^GSPC', '^DJI', '^IXIC','^NYA','^XAX','^BUK100P','^RUT','^VIX'
     '^JKSE','^KLSE','^NZ50','^KS11','^TWII','^GSPTSE','^BVSP','^MXX','^IPSA','^MERV','^TA125.TA']
 print(len(world_indices)) # world_indices : 36개->34개
 
-
-
-
 for world_indice in world_indices:
     try:
         data = yf.download(world_indice, start="2007-01-01", end="2022-01-26") # 26일까지로 해야 25일까지의 데이터가 나옴
@@ -53,9 +50,11 @@ for world_indice in world_indices:
         nul = df.isnull().sum()
         if (nul[0] > 0) or (nul[1] > 0) or (nul[2] > 0):  # 'Open'에 난값이 존재하면
             df.fillna(method='ffill', inplace=True)
-        change = pd.DataFrame({'Change': df['Adj Close'].pct_change(periods=1)})
+        # 등락율 백분율 전환
+        change = pd.DataFrame({'Change': df['Adj Close'].pct_change(periods=1)}) # (현재행 - 이전행) / 이전행 <-period=1일 경우.
         change.iloc[0] = 0  # 첫행은 Nan이므로 0으로 통일 시켜줌
         df = pd.concat([df, change], axis=1)
+        # 시작날짜, 마지막 날짜
         first_date = str(df.index[0]).split()[0]
         last_date = str(df.index[-1]).split()[0]
         print('날짜' , first_date, last_date)
