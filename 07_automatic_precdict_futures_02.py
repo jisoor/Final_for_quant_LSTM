@@ -100,8 +100,10 @@ xy = X_train, X_test, Y_train, Y_test
 
 # 모델링
 model = Sequential()
-model.add(LSTM(128, input_shape=(30, 1), activation='tanh', return_sequences=2))
+model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
 model.add(Flatten())
+model.add(Dropout(0.2))
+model.add(Dense(128))
 model.add(Dropout(0.2))
 model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')

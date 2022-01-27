@@ -6,7 +6,7 @@
 3. 모델링은 갑래님 모델과 같은 구조로
 4. minmaxscaler, 모델.h5, train_test_split, last_30개 데이터를 만들 때 저장이름
    : 자기파트 섹터_model.h5, 자기파트 섹터_last_30 등  (예시 : futures_minmaxscaler)
-
+코랩과 파이참을 이용해서 ....!
 
 
 

@@ -104,7 +104,7 @@ model.summary()
 ##LSTM이 여러층 쌓여있을 경우 마지막은 없고 마지막 전의 레이어들엔 무조건 return sequences가 있어야 한다
 #
 
-fit_hist=model.fit(X_train, Y_train, epochs=10,
+fit_hist=model.fit(X_train, Y_train, epochs=100,
                   validation_data=(X_test, Y_test),shuffle=False) #셔플=False의 의미==한 에폭안에서 섞어넣지 말고 시간순으로 입력
 ####예측값이기 때문에 loss만 본다
 ######################################################
