@@ -28,11 +28,17 @@ for i in range(3792): # 0~3791
 print('격차 절대값의 합 : ' , result)
 print('격차 절대값의 평균 : ' , (result/len(df_low)) )
 
- # low
-yesterday = 4304.8    #(1/26일자)
-today = 4309.5        #(1/27일자)
+# low
+yesterday = 4304.8
+today = 4309.5  # 실제값
+predicted_low_today = 4315  # 오늘 예측치
 diff = (today - yesterday) / yesterday
 print(diff)
-diff_pct  =  diff * 100
-print(diff_pct) # 0.10918044973052914 실제값
+diff_pct = diff * 100
+print(diff_pct)  # 0.10918044973052914 실제값
 # 만약 예측값이 똑같이 양수이고 그 차의 절대값(abs)이 0.351469이하이면, 정답으로 치부???
+
+predicted_diff = (predicted_low_today - yesterday) / yesterday
+print(predicted_diff)
+diff_pct = predicted_diff * 100
+print(diff_pct)
