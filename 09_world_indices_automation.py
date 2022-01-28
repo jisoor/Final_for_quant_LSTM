@@ -91,6 +91,8 @@ world_indices = [('^GSPC','S&P 500'), ('^DJI','Dow Jones Industrial Average'),('
     ,('^HSI','HANG SENG INDEX'),('000001.SS', 'SSE Composite Index'),('399001.SZ', 'Shenzhen Component'),('^STI','STI Index')
     ,('^AORD', 'ALL ORDINARIES'),('^BSESN', 'S&P BSE SENSEX'),('^JKSE', 'Jakarta Composite Index'),('^KLSE','FTSE Bursa Malaysia KLCI'),
     ('^KS11','KOSPI Composite Index'),('^TWII','TSEC weighted index'),('^BVSP','IBOVESPA'),('^MXX','IPC MEXICO'),('^MERV','MERVAL'),('^TA125.TA', 'TA-125')]
+
+## 'ESTX 50 PR.EUR' 부터 'MOEX Russia Index	'까지 , 'STI Index'부터 끝까지
 print(len(world_indices))
 print(world_indices[0][1])
 # 업무분담 2(모델링)
