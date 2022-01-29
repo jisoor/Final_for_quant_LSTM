@@ -27,15 +27,23 @@ print(name)
 
 
 # updated 데이터 먼저 가져오기(맨처음에 마지막60개 저장한 그 csv)
-updated_High = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'High'))
+# csv니깐 Date를 index 지정해주고 Datetime으로 변환
+updated_High = pd.read_csv('./updated/{}_{}_updated.csv'.format(name, 'High'))
+updated_High['Date'] = pd.to_datetime(updated_High['Date'])
+updated_High.set_index('Date', inplace=True)
 print(updated_High.tail())
-updated_Low = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Low'))
+updated_Low = pd.read_csv('./updated/{}_{}_updated.csv'.format(name, 'Low'))
+updated_Low['Date'] = pd.to_datetime(updated_Low['Date'])
+updated_Low.set_index('Date', inplace=True)
 print(updated_Low.tail())
-updated_Close = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Adj Close'))
+updated_Close = pd.read_csv('./updated/{}_{}_updated.csv'.format(name, 'Adj Close'))
+updated_Close['Date'] = pd.to_datetime(updated_Close['Date'])
+updated_Close.set_index('Date', inplace=True)
 print(updated_Close.tail())
-updated_Change = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Change'))
+updated_Change = pd.read_csv('./updated/{}_{}_updated.csv'.format(name, 'Change'))
+updated_Change['Date'] = pd.to_datetime(updated_Change['Date'])
+updated_Change.set_index('Date', inplace=True)
 print(updated_Change.tail())
-
 
 
 # A. 내일의 종가 예측 (밑에 대로 해야, 주말도 감안할 수 있음) 티커입력해주면 가져와서 4개 column에 관해 전부 다 예측
