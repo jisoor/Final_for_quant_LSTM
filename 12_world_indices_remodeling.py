@@ -114,26 +114,38 @@ for num, world_indices_path in enumerate(world_indices_paths):
 df_loss = df_loss.T
 df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
 
+
+# <데이터 프레임 만드는 법>
 # for문 밖에서
-class_name = []
-for i in range(30):
-    class_name.append(world_indices[i][1])
-print(class_name) # world_indicies에 있는 모든 종목이름을 리스트로 만듬
-print(len(class_name))  # 30개
-
-mse =  ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스로 설정
-
-df_loss = pd.DataFrame(columns=class_name)
-df_loss = pd.DataFrame({'mse':mse})
-print(df_loss)
-for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
-    df_loss[name] = np.nan          #nan값으로 채워서 빈 데이터프레임 만들기
-df_loss.set_index('mse', inplace=True)
-print(df_loss)
-print(df_loss.columns)
-print(len(df_loss.columns))
-# for문 안에서
-
-# for문 끝나고
-df_loss = df_loss.T
-df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
+# class_name = []
+# for i in range(30):
+#     class_name.append(world_indices[i][1])
+# print(class_name) # world_indicies에 있는 모든 종목이름을 리스트로 만듬
+# print(len(class_name))  # 30개
+#
+# mse =  ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스로 설정
+#
+# df_loss = pd.DataFrame(columns=class_name)
+# df_loss = pd.DataFrame({'mse':mse})
+# print(df_loss)
+# for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
+#     df_loss[name] = np.nan          #nan값으로 채워서 빈 데이터프레임 만들기
+# df_loss.set_index('mse', inplace=True)
+# print(df_loss)
+# print(df_loss.columns)
+# print(len(df_loss.columns))
+# # for문 안에서
+# mse = fit_hist.history['val_loss'][-1]
+# if colname == 'Change':
+#     df_loss.loc[colname][world_indices[num][1]] = mse
+#     df_loss.loc['Average'][world_indices[num][1]] = (df_loss.loc['High'][world_indices[num][1]] + df_loss.loc['Low'][
+#         world_indices[num][1]]
+#                                                      + df_loss.loc['Adj Close'][world_indices[num][1]] +
+#                                                      df_loss.loc['Change'][world_indices[num][1]]) / 4
+# else:
+#     df_loss.loc[colname][world_indices[num][1]] = mse  # '클래스이름'행 - 열에 mse 값이 들어가게 하기.
+#
+# print(df_loss)
+# # for문 끝나고
+# df_loss = df_loss.T
+# df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
