@@ -30,15 +30,32 @@ print(len(world_indices))
 # 업무분담 2(모델링)
 world_indices_paths = glob.glob('./datasets/world_indices/*.csv')
 print(world_indices_paths)
-df = pd.DataFrame()
+# 인덱스와 컬럼만 지정한 빈 DF 만들기
+# 인덱스를 리스트로 만들기
+class_name = []
+for i in range(30):
+    class_name.append(world_indices[i][1])
+print(class_name) # world_indicies에 있는 모든 종목이름을 리스트로 만듬
+print(len(class_name))  # 30개
+
+mse =  ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스로 설정
+
+df_loss = pd.DataFrame(columns=class_name)
+df_loss = pd.DataFrame({'mse':mse})
+print(df_loss)
+for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
+    df_loss[name] = np.nan          #nan값으로 채워서 빈 데이터프레임 만들기
+df_loss.set_index('mse', inplace=True)
+print(df_loss)
+print(df_loss.columns)
+print(len(df_loss.columns))
+
+
 for num, world_indices_path in enumerate(world_indices_paths):
     print(num) # 0 부터
-    print(type(num)) # int
     df = pd.read_csv(world_indices_path, index_col=0)
     print(df.head(3))
     df_lists = [('df_high','High'), ('df_low','Low'), ('df_close','Adj Close'), ('df_change','Change')] # ['df_high',' df_low', 'df_close', 'df_change']
-    # print(type(df_low))
-    # print(df_low.info())
     for df_each, colname in df_lists:
         df_each = df[[colname]]
         last_60_df = df_each[-60:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
@@ -71,6 +88,52 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.add(Dropout(0.2))
         model.add(Dense(1))
         model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=100, batch_size=50, callbacks=[early_stopping], verbose=1, shuffle=False, validation_data=(X_test, Y_test))
+        fit_hist = model.fit(X_train, Y_train, epochs=3, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
+
+        print(fit_hist)
+        plt.plot(fit_hist.history['loss'][:], label='loss')
+        plt.plot(fit_hist.history['val_loss'][:], label='val_loss')
+        mse = fit_hist.history['val_loss'][-1]
+        print('val_loss값은?? :', fit_hist.history['val_loss'][-1])
+        score = model.evaluate(X_test, Y_test, verbose=0)
+        print('LSTM val loss:', score)
+
+        plt.legend()
+        plt.show()
+        if colname == 'Change':
+            df_loss.loc[colname][world_indices[num][1]] = mse
+            df_loss.loc['Average'][world_indices[num][1]] = (df_loss.loc['High'][world_indices[num][1]] + df_loss.loc['Low'][world_indices[num][1]]
+                     + df_loss.loc['Adj Close'][world_indices[num][1]] + df_loss.loc['Change'][world_indices[num][1]]) / 4
+        else:
+            df_loss.loc[colname][world_indices[num][1]] = mse # '클래스이름'행 - 열에 mse 값이 들어가게 하기.
+
+        print(df_loss)
         model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
+
+df_loss = df_loss.T
+df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
+
+# for문 밖에서
+class_name = []
+for i in range(30):
+    class_name.append(world_indices[i][1])
+print(class_name) # world_indicies에 있는 모든 종목이름을 리스트로 만듬
+print(len(class_name))  # 30개
+
+mse =  ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스로 설정
+
+df_loss = pd.DataFrame(columns=class_name)
+df_loss = pd.DataFrame({'mse':mse})
+print(df_loss)
+for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
+    df_loss[name] = np.nan          #nan값으로 채워서 빈 데이터프레임 만들기
+df_loss.set_index('mse', inplace=True)
+print(df_loss)
+print(df_loss.columns)
+print(len(df_loss.columns))
+# for문 안에서
+
+# for문 끝나고
+df_loss = df_loss.T
+df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)

@@ -11,7 +11,7 @@ A. 각 자산클래스의 각 column에 대한 rmse(mse)를 구해서 데이터 
   ex) (30, 4) shape의 world_indices 같은 경우는
   column.name 은 val_loss(mse)
   index.name 은 종목명(티커명X)
-         |   High      |  Low     |    Adj Close    |   Change
+         |   High      |  Low     |    Adj Close    |   Change   | mse_average
   Kopsi  |
   Nikkei |
      .   |
