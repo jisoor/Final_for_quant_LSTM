@@ -3,17 +3,18 @@
 >>> diff_days = datetime.timedelta(days=50)
 >>> diff_days
 datetime.timedelta(days=50)
-timedelta에는 days파라미터 외에도 다음과 같은 것들을 사용할 수 있다.
+- timedelta에는 days파라미터 외에도 다음과 같은 것들을 사용할 수 있다.
+        days	일
+        seconds	초
+        microseconds	마이크로초
+        milliseconds	밀리초 (1밀리초는 1000마이크로초)
+        minutes	분
+        hours	시간
+        weeks	주 (7일을 의미함)
 
-항목	설명
-days	일
-seconds	초
-microseconds	마이크로초
-milliseconds	밀리초 (1밀리초는 1000마이크로초)
-minutes	분
-hours	시간
-weeks	주 (7일을 의미함)
-
+< 파이썬에서 문자를 datetime으로 가져오기>
+from datetime import datetime
+datetime.strptime("2018-01-31", "%Y-%m-%d")
 
 
 >>> from datetime import datetime
@@ -22,6 +23,8 @@ weeks	주 (7일을 의미함)
 
 import datetime
 now = datetime.datetime.now()
+currentDate = datetime.datetime.date()  # 현재날짜만 datetime형태로 출력
+currentTime = datetime.datetime.now()
 print ("Current date and time : ")
 print (now.strftime("%Y-%m-%d %H:%M:%S"))
 
