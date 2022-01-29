@@ -26,6 +26,8 @@ C 파일 저장 명의 통일
 ./updated/'{}_{}_updated.csv'.format(자산이름, column이름)      <= 추후 저장용이성을 위해 'updated'폴더에 저장
 ex) to_csv('./updated/{}_{}_updated.csv'.format('Gold', 'High')
 
-
+영준님이랑 저랑 한번 위에 정해진 베이스로 코드를 수정하여 완료해보고
+서로 코드 컨펌하면서 조정해서
+최종 코드를 통일하여 실행합니다~(자산 클래스만 다름)
 
 
