@@ -85,12 +85,18 @@ print(len(world_indices)) # world_indices : 36개->30개
 # 총 리스트는 : ['^GSPC', '^DJI', '^IXIC','^NYA','^XAX','^BUK100P','^RUT','^VIX','^FTSE','^GDAXI',
 #     '^FCHI','^STOXX50E','^N100','^BFX','IMOEX.ME','^N225','^HSI','000001.SS','399001.SZ','^STI','^AXJO','^AORD','^BSESN',
 #     '^JKSE','^KLSE','^NZ50','^KS11','^TWII','^GSPTSE','^BVSP','^MXX','^IPSA','^MERV','^TA125.TA']
-world_indices = [('^GSPC','S&P 500'), ('^DJI','Dow Jones Industrial Average'),('^IXIC','NASDAQ Composite'), ('^NYA','NYSE COMPOSITE (DJ)')
-    ,('^XAX','NYSE AMEX COMPOSITE INDEX'),('^BUK100P', 'Cboe UK 100'),('^RUT','Russell 2000'),('^VIX','Vix'),('^FTSE','FTSE 100'),('^GDAXI','DAX PERFORMANCE-INDEX'),
-    ('^FCHI', 'CAC 40'),('^STOXX50E', 'ESTX 50 PR.EUR'),('^N100', 'Euronext 100 Index'),('^BFX', 'BEL 20'),('IMOEX.ME','MOEX Russia Index	'),('^N225', 'Nikkei 225')
-    ,('^HSI','HANG SENG INDEX'),('000001.SS', 'SSE Composite Index'),('399001.SZ', 'Shenzhen Component'),('^STI','STI Index')
-    ,('^AORD', 'ALL ORDINARIES'),('^BSESN', 'S&P BSE SENSEX'),('^JKSE', 'Jakarta Composite Index'),('^KLSE','FTSE Bursa Malaysia KLCI'),
-    ('^KS11','KOSPI Composite Index'),('^TWII','TSEC weighted index'),('^BVSP','IBOVESPA'),('^MXX','IPC MEXICO'),('^MERV','MERVAL'),('^TA125.TA', 'TA-125')]
+# index를 path 꺼내오는 순서대로 재정렬함
+world_indices = [('^AORD', 'ALL ORDINARIES'), ('^BFX', 'BEL 20'), ('^FCHI', 'CAC 40'), ('^BUK100P', 'Cboe UK 100'), ('^GDAXI','DAX PERFORMANCE-INDEX'),
+('^DJI','Dow Jones Industrial Average'),('^STOXX50E', 'ESTX 50 PR.EUR'),('^N100', 'Euronext 100 Index'),('^KLSE','FTSE Bursa Malaysia KLCI'),
+ ('^FTSE', 'FTSE 100'),('^HSI','HANG SENG INDEX'),('^BVSP','IBOVESPA'), ('IMOEX.ME','MOEX Russia Index'),('^MXX','IPC MEXICO'),
+ ('^JKSE', 'Jakarta Composite Index'),('^KS11','KOSPI Composite Index'),('^MERV','MERVAL'),('^IXIC','NASDAQ Composite'),
+ ('^N225', 'Nikkei 225'),('^XAX','NYSE AMEX COMPOSITE INDEX'),('^NYA','NYSE COMPOSITE (DJ)'),('^RUT','Russell 2000'),('^GSPC','S&P 500'),
+ ('^BSESN', 'S&P BSE SENSEX'), ('399001.SZ', 'Shenzhen Component'),('000001.SS', 'SSE Composite Index'),('^STI','STI Index'),
+ ('^TA125.TA', 'TA-125'),('^TWII','TSEC weighted index'),('^VIX','Vix')]
+USA = []
+Asia = []
+HK = []
+CHINA = []
 
 ## 'ESTX 50 PR.EUR' 부터 'MOEX Russia Index	'까지 , 'STI Index'부터 끝까지
 print(len(world_indices))
@@ -113,14 +119,16 @@ for num, world_indices_path in enumerate(world_indices_paths):
     # print(df_low.info())
     for df_each, colname in df_lists:
         df_each = df[[colname]]
-        df_each = df_each[:-30]  # 마지막 30개 빼고 모델링
-        print(type(df_each)) # DataFrame
         last_30_df = df_each[-30:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
-        last_30_df.to_pickle('./pickles/{}_{}_last30_data.pickle'.format(world_indices[num][1], colname))
+        print(last_30_df.tail())
+        df_each = df_each[:-30]  # 마지막 30개 빼고 모델링
+
+        print(type(df_each)) # DataFrame
+        # last_30_df.to_pickle('./pickles/{}_{}_last30_data.pickle'.format(world_indices[num][1], colname))
         minmaxscaler = MinMaxScaler()
         scaled_data = minmaxscaler.fit_transform(df_each)  # 스케일링해주기
-        with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(world_indices[num][1], colname), 'wb') as f:
-            pickle.dump(minmaxscaler, f)
+        # with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(world_indices[num][1], colname), 'wb') as f:
+        #     pickle.dump(minmaxscaler, f)
         sequence_X = []
         sequence_Y = []
         for i in range(len(scaled_data) - 30):
@@ -132,16 +140,16 @@ for num, world_indices_path in enumerate(world_indices_paths):
         sequence_Y = np.array(sequence_Y)
         X_train, X_test, Y_train, Y_test = train_test_split(sequence_X, sequence_Y, test_size=0.2)
         xy = X_train, X_test, Y_train, Y_test
-        np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
+        # np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
 
-        model = Sequential()
-        model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
-        model.add(Flatten())
-        model.add(Dropout(0.2))
-        model.add(Dense(128))
-        model.add(Dropout(0.2))
-        model.add(Dense(1))
-        model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=100, validation_data=(X_test, Y_test), shuffle=False)
-        model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
+        # model = Sequential()
+        # model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
+        # model.add(Flatten())
+        # model.add(Dropout(0.2))
+        # model.add(Dense(128))
+        # model.add(Dropout(0.2))
+        # model.add(Dense(1))
+        # model.compile(loss='mse', optimizer='adam')
+        # fit_hist = model.fit(X_train, Y_train, epochs=100, validation_data=(X_test, Y_test), shuffle=False)
+        # model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
