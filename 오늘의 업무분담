@@ -1,63 +1,31 @@
-<업무 분담3>
-각자 모델링한 파트 * 4개의 열(Low , High, Adj Close, Change) + 하위컬럼_3개 : ( 예측값/ 실제값 / 정답 ) -> 총 12개의 컬럼(4 * 3)
-ex) 종가의(Adj Close),경우
+<업무 분담4> 1/29/토 긴급임무~
+currencies, world_indices, futures 3개 자산 클래스의 4개 columns(High, Low, Adj Close, Change)를 재모델링한다.
 
-종목(티커로)과 기간을 입력하면  (2022-01-26 , 2022-01-29) ->
+<역할>
+# 영준 : currencies 24개? * 4 에 대해 다시 재모델링 -> 96개의 rmse (24, 4) shape의 DataFrame으로 저장
+ 영준님의 코드 완성시 12_currencies_remodeling.py 다음 파일에 추가하여 pull request 부탁드립니다.
+  지수 : world_indicies와 갑래님의 futures를 같이 돌림
+  갑래 : 코드 컨펌
 
-기간 사이에 예측에 관한데이터를 데이터프레임으로 반환
-ex) 내일 날짜만 입력하면 내일 것맘ㄴ 예측
-ex) 과거 날짜도 섞여있으면 과거 날짜를 예측 한 값도 다 반환
-ex) 내일 모레 날짜 부터는 경우는 반환안함
+A. 각 자산클래스의 각 column에 대한 rmse(mse)를 구해서 데이터 프레임에 저장 (각각 minmaxscaling 후)
+B. epochs 는 100으로 하되 early_stopping 걸기
+ from keras.callbacks import EarlyStopping
+ early_stopping = EarlyStopping(monitor='val_loss', patience=5)
+ model.fit(X_train, Y_train, epochs=100, validation_data=(X_test, Y_test), callbacks=[early_stopping])
+아마 위의 코드?
 
-<문제점>
-아시아장과 미국장의 장마감 시간 차이때문에, 주의해주야 할 부분이 있음.
- + Yahoo Finance의 데이터 업데이터 시간이 정확한가..
-< 아시아장 홍콩/항셍 , 미국장 오전 6am 마감 여름엔 장 시간 구분해서 ....!! >
-< 시간 관련 함수 써서 특정시간 >
+C 파일 저장 명의 통일
+1. minmaxscaler
+./minmaxscaler/'{}_{}_minmaxscaler.pickle'.format(자산이름, column이름)
+ 예시) USD/HKD_Adj Close_minmaxscaler.pickle
+2. train_test_split
+./train_test_split/'{}_{}_train_test_split.npy'.format(자산이름, column이름)
+3. model
+./models/'{}_{}_model.h5'.format(자산이름, column이름)
+4. 마지막 60개 데이터프레임(원래 30개엿는데 60개로 바꾸는게 좋을 듯함. pickle아니고 바로 열람할 수 있는 csv형태로
+./updated/'{}_{}_updated.csv'.format(자산이름, column이름)      <= 추후 저장용이성을 위해 'updated'폴더에 저장
+ex) to_csv('./updated/{}_{}_updated.csv'.format('Gold', 'High')
 
-
-<순서>
-<한 종목 - 한 컬럼 - 원하는 날짜범위 에 관한 예측 >
--기존데이터프레임(30개 짜리 , 마지막 날짜 2022-01-25)
--기존데이터프레임의 마지막 행을 찾아서 + day1 한다(timedelta(days=1)) => start_day
--오늘 - 1day = today() - timedelta(days=1)   => yesterday
--각 종목의 Close 데이터를 새롭게 다운로드 받아 날짜를 [start_day: yesterday]로 한정한다.
--기존DF에 콘캣하고, 새롭게 업뎃시킨 df 를 토대로(updated_df)
--원하는 예측을 지정한 날짜가 예를 들어 2022-01-26 ~ 2022-01-28 이라면 (3일치의 예측을 원하는 것이고) <- Date로 이루어진 index에서 날짜 슬라이싱
--1/26, 1/27, 1/28일 3일의 날짜를 각각 예측시킨 후 , 다음과 같은 (데이터프레임과 ,최종정답률을 백분위로 환산)하여 내놓음.
--정답은 'O', 'X', '내일 나옴' 세가지.
-if 실제종가가 '내일나옴'이면 그 정답도 '내일나옴'이런식으로
-예시)            Adj Close           |              High            |                low           |          Change
-Date | predict  | actual | correct  | predict  | actual | correct  | predict  | actual | correct  | predict  | actual | correct
-1/26                         1 (정답)|
-1/27                         0 (틀림)|
-1/28             내일나옴   내일나옴   |
-1/29                         1
-
-
-- 최종정답률 :
-
-< 전 종목에 관한 예측 >.py
-기간 설정할 수 있게 해서.
-24개 단위로 잘라서(1달) 전체의 종목의 정답률을 매긴다.
-'높은 예측률' 버튼을 눌러 실행시키면
-총 84개(indices,futures,curruencies)  = 84개 모델에서(데이터프레임으로)
-각 모델의 탑순위부터 보여줌.
-정답률이 80프로 이상인 모델은(종목-열) 따로 '유망종목' 등등의 이름의 리스트 등 으로 보여주기.
-
----------------------------------------------------------------------------------------
-할 수 있는데 까지해보고 어려운 부분은 같이 해결하거나 , 구성을 조정하고 싶다면 얼마든지 의견제시해주세요~
-
-
-ex) High ,  Low 의 경우
-10_지표의 기준.py 을 참조하시면 되는데
-최고가의 정답 기준을 어떻게 매길지가 애매하고 정해진 기준이 없으므로 꾸준히 고민해봐야함.
--> 전일 대비 변화율 의 절대값을 모두 더한후 전체갯수로 나눈 변화율의 평균을 구한다. = aver
--> <어제 실제치 <-> 오늘 예측치간> 의 변화율이 aver 의 방향성(+,- )과 일치하고, 수치의 절대값도 aver/2 이내에 차이가 나면
-ex) Change 의 경우
-
-
-< 원하는 시점에 입력하면 원하는 종목, 모델의 데이터를 업데이트 할 수 있게 >
 
 
 
