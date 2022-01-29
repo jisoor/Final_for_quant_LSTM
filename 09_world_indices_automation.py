@@ -104,7 +104,7 @@ print(world_indices[0][1])
 # 업무분담 2(모델링)
 world_indices_paths = glob.glob('./datasets/world_indices/*.csv')
 print(world_indices_paths)
-# df = pd.DataFrame()
+df = pd.DataFrame()
 for num, world_indices_path in enumerate(world_indices_paths):
     print(num) # 0 부터
     print(type(num)) # int
@@ -119,37 +119,36 @@ for num, world_indices_path in enumerate(world_indices_paths):
     # print(df_low.info())
     for df_each, colname in df_lists:
         df_each = df[[colname]]
-        last_30_df = df_each[-30:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
-        print(last_30_df.tail())
+        last_60_df = df_each[-60:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
+        print(last_60_df.tail())
         df_each = df_each[:-30]  # 마지막 30개 빼고 모델링
-
         print(type(df_each)) # DataFrame
-        last_30_df.to_pickle('./pickles/{}_{}_last30_data.pickle'.format(world_indices[num][1], colname))
-        minmaxscaler = MinMaxScaler()
-        scaled_data = minmaxscaler.fit_transform(df_each)  # 스케일링해주기
-        with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(world_indices[num][1], colname), 'wb') as f:
-            pickle.dump(minmaxscaler, f)
-        sequence_X = []
-        sequence_Y = []
-        for i in range(len(scaled_data) - 30):
-            _x = scaled_data[i:i + 30]  # 총 30개
-            _y = scaled_data[i + 30]  # 31번째를 예측
-            sequence_X.append(_x)
-            sequence_Y.append(_y)
-        sequence_X = np.array(sequence_X)
-        sequence_Y = np.array(sequence_Y)
-        X_train, X_test, Y_train, Y_test = train_test_split(sequence_X, sequence_Y, test_size=0.2)
-        xy = X_train, X_test, Y_train, Y_test
-        np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
-
-        model = Sequential()
-        model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
-        model.add(Flatten())
-        model.add(Dropout(0.2))
-        model.add(Dense(128))
-        model.add(Dropout(0.2))
-        model.add(Dense(1))
-        model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=100, validation_data=(X_test, Y_test), shuffle=False)
-        model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
+        last_60_df.to_pickle('./pickles/{}_{}_last60_data.pickle'.format(world_indices[num][1], colname))
+        # minmaxscaler = MinMaxScaler()
+        # scaled_data = minmaxscaler.fit_transform(df_each)  # 스케일링해주기
+        # with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(world_indices[num][1], colname), 'wb') as f:
+        #     pickle.dump(minmaxscaler, f)
+        # sequence_X = []
+        # sequence_Y = []
+        # for i in range(len(scaled_data) - 30):
+        #     _x = scaled_data[i:i + 30]  # 총 30개
+        #     _y = scaled_data[i + 30]  # 31번째를 예측
+        #     sequence_X.append(_x)
+        #     sequence_Y.append(_y)
+        # sequence_X = np.array(sequence_X)
+        # sequence_Y = np.array(sequence_Y)
+        # X_train, X_test, Y_train, Y_test = train_test_split(sequence_X, sequence_Y, test_size=0.2)
+        # xy = X_train, X_test, Y_train, Y_test
+        # np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
+        #
+        # model = Sequential()
+        # model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
+        # model.add(Flatten())
+        # model.add(Dropout(0.2))
+        # model.add(Dense(128))
+        # model.add(Dropout(0.2))
+        # model.add(Dense(1))
+        # model.compile(loss='mse', optimizer='adam')
+        # fit_hist = model.fit(X_train, Y_train, epochs=100, validation_data=(X_test, Y_test), shuffle=False)
+        # model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')

@@ -23,15 +23,15 @@ for world_indice in world_indices:
         break
 
 
-# last_30 데이터 먼저 가져오기
-last_30_High = pd.read_pickle('./pickles/{}_{}_last30_data.pickle'.format(name, 'High'))
-print(last_30_High.tail())
-last_30_Low = pd.read_pickle('./pickles/{}_{}_last30_data.pickle'.format(name, 'Low'))
-print(last_30_Low.tail())
-last_30_Close = pd.read_pickle('./pickles/{}_{}_last30_data.pickle'.format(name, 'Adj Close'))
-print(last_30_Close.tail())
-last_30_Change = pd.read_pickle('./pickles/{}_{}_last30_data.pickle'.format(name, 'Change'))
-print(last_30_Change.tail())
+# updated 데이터 먼저 가져오기(맨처음에 마지막60개 저장한 그 csv)
+updated_High = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'High'))
+print(updated_High.tail())
+updated_Low = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Low'))
+print(updated_Low.tail())
+updated_Close = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Adj Close'))
+print(updated_Close.tail())
+updated_Change = pd.read_pickle('./updated/{}_{}_updated.csv'.format(name, 'Change'))
+print(updated_Change.tail())
 
 
 
@@ -47,7 +47,7 @@ d = datetime.datetime.strptime('05:59:00', '%H:%M:%S').time()
 
 currentTime = datetime.datetime.now().time() # 현재시간만.
 Today = datetime.date.today()
-last_date_from_previous_df = pd.to_datetime(last_30_Change.index[-1]).date() #01.25일
+last_date_from_previous_df = pd.to_datetime(updated_Change.index[-1]).date() #01.25일
 one_day = datetime.timedelta(days=1)
 
 
@@ -75,33 +75,33 @@ predict_4_df.set_index('종목', inplace=True)
 predict_4_df.columns.name = '예측치'
 
 # 각각의 column을 예측해주는 과정 및 모든 예측결과를 데이터프레임으로 save_predict_tmr 폴더에 저장해준다,
-col_list = [(last_30_High, 'High'), (last_30_Low, 'Low'),(last_30_Close, 'Adj Close'), (last_30_Change, 'Change')]
-for last_30, col in col_list:
+col_list = [(updated_High, 'High'), (updated_Low, 'Low'),(updated_Close, 'Adj Close'), (updated_Change, 'Change')]
+for updated_data, col in col_list:
     if col == 'Change':
         # change 열 전환하여 추가하는 과정
-        last_30_Close_last_one_row = last_30_Close.iloc[[-1]]  # 마지막 종가 행 하나가져오기
-        print(last_30_Close_last_one_row)
+        updated_data_Close_last_one_row = updated_Close.iloc[[-1]]  # 마지막 종가 행 하나가져오기
+        print(updated_data_Close_last_one_row)
         new_Close = new_data[['Adj Close']]
-        updated_Close_before_Change = pd.concat([last_30_Close_last_one_row, new_Close])
+        updated_Close_before_Change = pd.concat([updated_data_Close_last_one_row, new_Close])
         print(updated_Close_before_Change)
         new_Change = (updated_Close_before_Change.pct_change(periods=1) * 100).round(2)
         print(new_Change)
         new_Change = new_Change[1:]
         new_Change.rename(columns={'Adj Close': 'Change'}, inplace=True)
-        final_df = pd.concat([last_30, new_Change])
+        final_df = pd.concat([updated_data, new_Change])
         print(final_df)
     else:
         divided_new_data = new_data[[col]]
-        final_df = pd.concat([last_30, divided_new_data])
+        final_df = pd.concat([updated_data, divided_new_data])
     final_df.to_csv('./updated/{}_{}_updated.csv'.format(name, col), index=True )
 
     # 마지막 30개 예측
     with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(name, col), 'rb') as f:
         minmaxscaler = pickle.load(f)
-    final_df = final_df[-30:]
-    scaled_final_df = minmaxscaler.transform(final_df)
+    last30_df = final_df[-30:]
+    scaled_last30_df = minmaxscaler.transform(last30_df)
     model = load_model('./models/{}_{}_model.h5'.format(name, col))
-    tmr_predict = model.predict(scaled_final_df.reshape(1, 30, 1))
+    tmr_predict = model.predict(scaled_last30_df.reshape(1, 30, 1))
     print(tmr_predict)
     tmr_predicted_value = minmaxscaler.inverse_transform(tmr_predict)
     print('내일예측값$ %2f '%tmr_predicted_value[0][0])
