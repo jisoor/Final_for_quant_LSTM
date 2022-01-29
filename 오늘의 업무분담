@@ -8,6 +8,16 @@ currencies, world_indices, futures 3개 자산 클래스의 4개 columns(High, L
   갑래 : 코드 컨펌
 
 A. 각 자산클래스의 각 column에 대한 rmse(mse)를 구해서 데이터 프레임에 저장 (각각 minmaxscaling 후)
+  ex) (30, 4) shape의 world_indices 같은 경우는
+  column.name 은 val_loss(mse)
+  index.name 은 종목명(티커명X)
+         |   High      |  Low     |    Adj Close    |   Change
+  Kopsi  |
+  Nikkei |
+     .   |
+     .
+     .
+
 B. epochs 는 100으로 하되 early_stopping 걸기
  from keras.callbacks import EarlyStopping
  early_stopping = EarlyStopping(monitor='val_loss', patience=5)
@@ -26,8 +36,17 @@ C 파일 저장 명의 통일
 ./updated/'{}_{}_updated.csv'.format(자산이름, column이름)      <= 추후 저장용이성을 위해 'updated'폴더에 저장
 ex) to_csv('./updated/{}_{}_updated.csv'.format('Gold', 'High')
 
+D. plot 그리기(각 모델의 val_loss에 대한 ..-> 차이를 확연히 알 수 있도록 1/3 지점 쯔음 시작하는게 좋음
+
 영준님이랑 저랑 한번 위에 정해진 베이스로 코드를 수정하여 완료해보고
 서로 코드 컨펌하면서 조정해서
 최종 코드를 통일하여 실행합니다~(자산 클래스만 다름)
-
-
+-----------------------------------------------------------
+이후할거.
+1. 중국장 유럽장 홍콩장등 시간 계산해서 파일 따로 만들기
+2. 오늘 재모델링 with mse 다시 하기 (plot도 그려야함) -> 4개 컬럼 mse의 평균값 column도 추가 .
+3. 포워드 테스트시 acutal, pred, residual 데이터프레임과 함께 각 행에 대한 residual에 대한 plot 띄우기
+-------------
+lstm & Arima
+-------------
+pairTrading
