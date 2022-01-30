@@ -92,11 +92,11 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.add(Dropout(0.2))
         model.add(Dense(1))
         model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=1, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
+        fit_hist = model.fit(X_train, Y_train, epochs=100, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
 
         print(fit_hist)
-        plt.plot(fit_hist.history['loss'][:], label='loss')
-        plt.plot(fit_hist.history['val_loss'][:], label='val_loss')
+        plt.plot(fit_hist.history['loss'][-30:], label='loss')
+        plt.plot(fit_hist.history['val_loss'][-30:], label='val_loss')
         mse = fit_hist.history['val_loss'][-1]
         print('val_loss값은?? :', fit_hist.history['val_loss'][-1])
         score = model.evaluate(X_test, Y_test, verbose=0)
@@ -122,7 +122,8 @@ for num, world_indices_path in enumerate(world_indices_paths):
 
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
     plt.savefig('./datasets/{}_mse_plot.png'.format(world_indices[num][1]))  # './datasets/{}_world_indices_mse.png'.format(world_indices[num][1])
-    plt.show()
+    plt.show(block=False)
+    plt.pause(1)
     plt.close()
 
 df_loss = df_loss.T

@@ -82,11 +82,11 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.add(Dropout(0.2))
         model.add(Dense(1))
         model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=1, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
+        fit_hist = model.fit(X_train, Y_train, epochs=100, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
 
         # 플롯 차트 #
-        plt.plot(fit_hist.history['loss'][:], label='loss')
-        plt.plot(fit_hist.history['val_loss'][:], label='val_loss')
+        plt.plot(fit_hist.history['loss'][-30:], label='loss')
+        plt.plot(fit_hist.history['val_loss'][-30:], label='val_loss')
         mse = fit_hist.history['val_loss'][-1]
         print('val_loss값은?? :', mse)
         plt.subplot(4, 1, plot_num)
@@ -109,7 +109,8 @@ for num, world_indices_path in enumerate(world_indices_paths):
 
     # 한 클래스당 4개의 컬럼에 대한 mse(val_loss)의 추이에 대한 그래프를 저장.
     plt.savefig('./datasets/{}_mse_plot.png'.format(world_indices[num][1]))
-    plt.show()
+    plt.show(block=False)
+    plt.pause(1) # 1초후 자동으로 창 닫음
     plt.close()
 
 df_loss = df_loss.T  # 행-열 전환 transpose.
