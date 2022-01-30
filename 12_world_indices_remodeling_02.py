@@ -28,36 +28,29 @@ world_indices = [('^AORD', 'ALL ORDINARIES'), ('^BFX', 'BEL 20'), ('^FCHI', 'CAC
 
 
 world_indices_paths = glob.glob('./datasets/world_indices/*.csv')
-print(world_indices_paths)
+
 # 인덱스와 컬럼만 지정한 빈 DF 만들기
+# 30개 자산클래스의 이름
 class_name = []
 for i in range(30):
     class_name.append(world_indices[i][1])
-print(class_name) # world_indicies에 있는 모든 종목이름을 리스트로 만듬
-print(len(class_name))  # 30개
 
-mse =  ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스로 설정
-df_loss = pd.DataFrame(columns=class_name)
-df_loss = pd.DataFrame({'mse':mse})
-print(df_loss)
+mse = ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스
+df_loss = pd.DataFrame(columns=class_name) # 30개 자산클래스 column
+df_loss = pd.DataFrame({'mse':mse})     # 'mse' 5개 값을 가진 column을 만듬
+
 for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
-    df_loss[name] = np.nan          #nan값으로 채워서 빈 데이터프레임 만들기
-df_loss.set_index('mse', inplace=True)
-print(df_loss)
-print(df_loss.columns)
-print(len(df_loss.columns))
+    df_loss[name] = np.nan           # nan 값으로 채워서 빈 데이터프레임 만들기
+df_loss.set_index('mse', inplace=True)  # mse 안 5개 값을 인덱스로 나열해줌(추후 transpose(T)해서 인덱스-컬럼 바꿀것임).
 
 
-
+plt.figure(figsize=(8, 18))
 for num, world_indices_path in enumerate(world_indices_paths):
-    print(num) # 0 부터
     df = pd.read_csv(world_indices_path, index_col=0)
-    print(df.head(3))
     df_lists = [('df_high','High'), ('df_low','Low'), ('df_close','Adj Close'), ('df_change','Change')] # ['df_high',' df_low', 'df_close', 'df_change']
     plot_num = 0
-    plt.figure(figsize=(8,18))
     for df_each, colname in df_lists:
-        plot_num += 1
+        plot_num += 1   # 1, 2, 3, 4
         df_each = df[[colname]]
         last_60_df = df_each[-60:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
         print(last_60_df.tail())
@@ -91,7 +84,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.compile(loss='mse', optimizer='adam')
         fit_hist = model.fit(X_train, Y_train, epochs=1, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
 
-        print(fit_hist)
+        # 플롯 차트 #
         plt.plot(fit_hist.history['loss'][:], label='loss')
         plt.plot(fit_hist.history['val_loss'][:], label='val_loss')
         mse = fit_hist.history['val_loss'][-1]
@@ -103,6 +96,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         plt.tight_layout()
         plt.grid(True)
 
+        # 위에서 만든 DataFrame에 Key값들 채우기.
         if colname == 'Change':
             df_loss.loc[colname][world_indices[num][1]] = mse
             df_loss.loc['Average'][world_indices[num][1]] = (df_loss.loc['High'][world_indices[num][1]] + df_loss.loc['Low'][world_indices[num][1]]
@@ -113,11 +107,12 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
 
-    plt.savefig('./datasets/{}_mse_plot'.format(world_indices[num][1]))
+    # 한 클래스당 4개의 컬럼에 대한 mse(val_loss)의 추이에 대한 그래프를 저장.
+    plt.savefig('./datasets/{}_mse_plot.png'.format(world_indices[num][1]))
     plt.show()
     plt.close()
 
-df_loss = df_loss.T
+df_loss = df_loss.T  # 행-열 전환 transpose.
 df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
 
 

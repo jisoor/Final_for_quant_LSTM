@@ -57,6 +57,8 @@ for num, world_indices_path in enumerate(world_indices_paths):
     print(df.head(3))
     df_lists = [('df_high','High'), ('df_low','Low'), ('df_close','Adj Close'), ('df_change','Change')] # ['df_high',' df_low', 'df_close', 'df_change']
     plot_num = 0
+    plt.figure(figsize=(8,18))
+
     for df_each, colname in df_lists:
         plot_num += 1
         df_each = df[[colname]]
