@@ -75,7 +75,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
 
         model = Sequential()
-        model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=2))
+        model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=1))
         model.add(Flatten())
         model.add(Dropout(0.2))
         model.add(Dense(128))
