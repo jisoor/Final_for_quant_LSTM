@@ -92,7 +92,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.add(Dropout(0.2))
         model.add(Dense(1))
         model.compile(loss='mse', optimizer='adam')
-        fit_hist = model.fit(X_train, Y_train, epochs=100, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
+        fit_hist = model.fit(X_train, Y_train, epochs=1, callbacks=[early_stopping],  shuffle=False, validation_data=(X_test, Y_test))
 
         print(fit_hist)
         plt.plot(fit_hist.history['loss'][-30:], label='loss')
