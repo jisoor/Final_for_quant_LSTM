@@ -121,7 +121,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
 
         print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
-    plt.savefig('./datasets/{}_mse_plot'.format(world_indices[num][1]))  # './datasets/{}_world_indices_mse.png'.format(world_indices[num][1])
+    plt.savefig('./datasets/{}_mse_plot.png'.format(world_indices[num][1]))  # './datasets/{}_world_indices_mse.png'.format(world_indices[num][1])
     plt.show()
     plt.close()
 
