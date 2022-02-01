@@ -16,60 +16,48 @@ from tensorflow.keras.callbacks import EarlyStopping  # early_stopping 걸기
 early_stopping=EarlyStopping(monitor='val_loss',patience=5) # early_stopping 걸기
 pd.set_option('display.max_columns', None) # 열이 전부다 나오게
 
-futures = [('ES=F', 'SPX'),('YM=F', 'DOW'),('NQ=F', 'NASDAQ'),('RTY=F', 'RUSSEL2000'),('ZB=F''US30YT' ),
-             ( 'ZN=F', 'US10YT'),('ZF=F', 'US5YT'),('ZT=F','US2YT'),('GC=F','GOLD'),('SI=F','SILVER'),
-              ('PL=F','PLATINUM'),('HG=F','COPPER'),('PA=F','PALLADIUM' ),('CL=F','CRUDE_OIL' ),('NG=F','NATURAL_GAS'),
-             ('BZ=F','BRENT_OIL' ),('ZC=F','CORN'),('ZO=F','OAT'),('KE=F','WHEAT'),('ZR=F','ROUGH_RICE'),
-              ('ZM=F','SOYBEAN_MEAL'),('ZL=F','SOYBEAN_OIL'),('ZS=F','SOYBEAN'),('GF=F','FEEDER_CATTLE'),('HE=F','LEAN_HOGS'),
-             ('LE=F','LIVE_CATTLE'),('CC=F','COTTON'),('KC=F'),('CT=F','COTTON'),('LBS=F','LUMBER'),('SB=F','SUGAR')]
+futures = [('BZ=F','BRENT_OIL' ),('CC=F','COCOA'),('KC=F', 'Coffee'),('HG=F','COPPER'),('ZC=F','CORN'),('CT=F','COTTON'),
+    ('CL=F','CRUDE_OIL' ),('YM=F', 'DOW'),('GF=F','FEEDER_CATTLE'),('GC=F','GOLD'),('HE=F','LEAN_HOGS'),('LE=F','LIVE_CATTLE'),
+    ('LBS=F','LUMBER'),('NQ=F', 'NASDAQ'),('NG=F','NATURAL_GAS'),('ZO=F','OAT'),('PA=F','PALLADIUM' ),('PL=F','PLATINUM'),('ZR=F','ROUGH_RICE'),
+    ('RTY=F', 'RUSSEL2000'),('SI=F','SILVER'),('ZS=F','SOYBEAN'),('ZM=F','SOYBEAN_MEAL'),('ZL=F','SOYBEAN_OIL'),
+    ('ES=F', 'SPX'),('SB=F','SUGAR'),('ZT=F','US2YT'),('ZF=F', 'US5YT'),( 'ZN=F', 'US10YT'), ('ZB=F','US30YT' ), ('KE=F','WHEAT')]
+print(len(futures)) # 31개
 
-print(len(futures))
-exit()
-
-# epochs 만 100으로 밤꿔서 돌리기
-#####################  재모델링 #################
-world_indices = [('^AORD', 'ALL ORDINARIES'), ('^BFX', 'BEL 20'), ('^FCHI', 'CAC 40'), ('^BUK100P', 'Cboe UK 100'), ('^GDAXI','DAX PERFORMANCE-INDEX'),
-('^DJI','Dow Jones Industrial Average'),('^STOXX50E', 'ESTX 50 PR.EUR'),('^N100', 'Euronext 100 Index'),('^KLSE','FTSE Bursa Malaysia KLCI'),
- ('^FTSE', 'FTSE 100'),('^HSI','HANG SENG INDEX'),('^BVSP','IBOVESPA'), ('IMOEX.ME','MOEX Russia Index'),('^MXX','IPC MEXICO'),
- ('^JKSE', 'Jakarta Composite Index'),('^KS11','KOSPI Composite Index'),('^MERV','MERVAL'),('^IXIC','NASDAQ Composite'),
- ('^N225', 'Nikkei 225'),('^XAX','NYSE AMEX COMPOSITE INDEX'),('^NYA','NYSE COMPOSITE (DJ)'),('^RUT','Russell 2000'),('^GSPC','S&P 500'),
- ('^BSESN', 'S&P BSE SENSEX'), ('399001.SZ', 'Shenzhen Component'),('000001.SS', 'SSE Composite Index'),('^STI','STI Index'),
- ('^TA125.TA', 'TA-125'),('^TWII','TSEC weighted index'),('^VIX','Vix')]
-
-
-world_indices_paths = glob.glob('./datasets/world_indices/*.csv')
-
+futures_paths = glob.glob('./futures/futures_data/*.csv')
+print(len(futures_paths))
 # 인덱스와 컬럼만 지정한 빈 DF 만들기
 # 30개 자산클래스의 이름
 class_name = []
-for i in range(30):
-    class_name.append(world_indices[i][1])
+for i in range(31):
+    class_name.append(futures[i][1])
+print(class_name)
 
 mse = ['High', 'Low', 'Adj Close', 'Change', 'Average'] # 인덱스
-df_loss = pd.DataFrame(columns=class_name) # 30개 자산클래스 column
+df_loss = pd.DataFrame(columns=class_name) # 31개 자산클래스 column
 df_loss = pd.DataFrame({'mse':mse})     # 'mse' 5개 값을 가진 column을 만듬
 
-for ticker, name in world_indices:   # 30개 클래스 이름이 모두 columns로 들어옴
+for ticker,name in futures:   # 31개 클래스 이름이 모두 columns로 들어옴
     df_loss[name] = np.nan           # nan 값으로 채워서 빈 데이터프레임 만들기
 df_loss.set_index('mse', inplace=True)  # mse 안 5개 값을 인덱스로 나열해줌(추후 transpose(T)해서 인덱스-컬럼 바꿀것임).
 
 
 plt.figure(figsize=(8, 18))
-for num, world_indices_path in enumerate(world_indices_paths):
-    df = pd.read_csv(world_indices_path, index_col=0)
+for num, futures_path in enumerate(futures_paths):
+    df = pd.read_csv(futures_path, index_col=0)
+    df.rename(columns={'Adj_Close':'Adj Close'}, inplace=True)
     df_lists = [('df_high','High'), ('df_low','Low'), ('df_close','Adj Close'), ('df_change','Change')] # ['df_high',' df_low', 'df_close', 'df_change']
     plot_num = 0
     for df_each, colname in df_lists:
         plot_num += 1   # 1, 2, 3, 4
-        df_each = df[[colname]]
+        df_each = df[[colname]]  # 오류 "None of [Index(['Adj Close'], dtype='object')] are in the [columns]"
         last_60_df = df_each[-60:]  # 마지막 30개만 따로 빼놓기(벡테스팅용)
         print(last_60_df.tail())
         df_each = df_each[:-30]  # 마지막 30개 빼고 모델링
         print(type(df_each)) # DataFrame
-        last_60_df.to_csv('./updated/{}_{}_updated.csv'.format(world_indices[num][1], colname))
+        last_60_df.to_csv('./futures/updated/{}_{}_updated.csv'.format(futures[num][1], colname))
         minmaxscaler = MinMaxScaler()
         scaled_data = minmaxscaler.fit_transform(df_each)  # 스케일링해주기
-        with open('./minmaxscaler/{}_{}_minmaxscaler.pickle'.format(world_indices[num][1], colname), 'wb') as f:
+        with open('./futures/minmaxscaler/{}_{}_minmaxscaler.pickle'.format(futures[num][1], colname), 'wb') as f:
             pickle.dump(minmaxscaler, f)
         sequence_X = []
         sequence_Y = []
@@ -82,7 +70,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         sequence_Y = np.array(sequence_Y)
         X_train, X_test, Y_train, Y_test = train_test_split(sequence_X, sequence_Y, test_size=0.2)
         xy = X_train, X_test, Y_train, Y_test
-        np.save('./train_test_split/{}_{}_train_test.npy'.format(world_indices[num][1], colname), xy)  # 저장하고
+        np.save('./futures/train_test_split/{}_{}_train_test.npy'.format(futures[num][1], colname), xy)  # 저장하고
 
         model = Sequential()
         model.add(LSTM(512, input_shape=(30, 1), activation='tanh', return_sequences=1))
@@ -100,7 +88,7 @@ for num, world_indices_path in enumerate(world_indices_paths):
         mse = fit_hist.history['val_loss'][-1]
         print('val_loss값은?? :', mse)
         plt.subplot(4, 1, plot_num)
-        plt.title(world_indices[num][1])
+        plt.title(futures[num][1])
         plt.ylabel(colname)
         plt.legend()
         plt.tight_layout()
@@ -108,22 +96,22 @@ for num, world_indices_path in enumerate(world_indices_paths):
 
         # 위에서 만든 DataFrame에 Key값들 채우기.
         if colname == 'Change':
-            df_loss.loc[colname][world_indices[num][1]] = mse
-            df_loss.loc['Average'][world_indices[num][1]] = (df_loss.loc['High'][world_indices[num][1]] + df_loss.loc['Low'][world_indices[num][1]]
-                     + df_loss.loc['Adj Close'][world_indices[num][1]] + df_loss.loc['Change'][world_indices[num][1]]) / 4
+            df_loss.loc[colname][futures[num][1]] = mse
+            df_loss.loc['Average'][futures[num][1]] = (df_loss.loc['High'][futures[num][1]] + df_loss.loc['Low'][futures[num][1]]
+                     + df_loss.loc['Adj Close'][futures[num][1]] + df_loss.loc['Change'][futures[num][1]]) / 4
         else:
-            df_loss.loc[colname][world_indices[num][1]] = mse # '클래스이름'행 - 열에 mse 값이 들어가게 하기.
+            df_loss.loc[colname][futures[num][1]] = mse # '클래스이름'행 - 열에 mse 값이 들어가게 하기.
 
-        model.save('./models/{}_{}_model.h5'.format(world_indices[num][1], colname))  # 모델 저장하기
-        print (world_indices[num][1], colname, ' 모델링및 저장 까지 완료 ')
+        model.save('./futures/models/{}_{}_model.h5'.format(futures[num][1], colname))  # 모델 저장하기
+        print (futures[num][1], colname, ' 모델링및 저장 까지 완료 ')
 
     # 한 클래스당 4개의 컬럼에 대한 mse(val_loss)의 추이에 대한 그래프를 저장.
-    plt.savefig('./datasets/{}_mse_plot.png'.format(world_indices[num][1]))
+    plt.savefig('./futures/datasets/{}_mse_plot.png'.format(futures[num][1]))
     plt.show(block=False)
     plt.pause(1) # 1초후 자동으로 창 닫음
     plt.close()
 
 df_loss = df_loss.T  # 행-열 전환 transpose.
-df_loss.to_csv('./datasets/world_indices_mse.csv', index =True)
+df_loss.to_csv('./futures/datasets/futures_mse.csv', index=True)
 
 

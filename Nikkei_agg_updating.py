@@ -65,7 +65,7 @@ for i in nikkei:
   updated_df.to_pickle('./models/updated_df_nikkei_{}.pickle'.format(i))  # 업데이트된 DataFrame 저장시키기(나중에 다시 불러올 데이터)
 
   ############### 여기까지, 기존 프레임에 새로운날짜를 업데이트 하는 거 완료 ######################################
-  last_30_data = updated_df[-30:][['{}']].format(i)
+  last_30_data = updated_df[-30:][[{}]].format(i)
   print('업데이트 마지막 30개 ', last_30_data.tail(20))
 
   X_train, X_test, Y_train, Y_test = np.load('./models/nikkei_{}_XY.npy'.format(i), allow_pickle=True)
