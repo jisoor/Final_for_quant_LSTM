@@ -102,16 +102,16 @@ for num, futures_path in enumerate(futures_paths):
         else:
             df_loss.loc[colname][futures[num][1]] = mse # '클래스이름'행 - 열에 mse 값이 들어가게 하기.
 
-        model.save('./futures/models/{}_{}_model.h5'.format(futures[num][1], colname))  # 모델 저장하기
+        model.save('./models/{}_{}_model.h5'.format(futures[num][1], colname))  # 모델 저장하기
         print (futures[num][1], colname, ' 모델링및 저장 까지 완료 ')
 
     # 한 클래스당 4개의 컬럼에 대한 mse(val_loss)의 추이에 대한 그래프를 저장.
-    plt.savefig('./futures/datasets/{}_mse_plot.png'.format(futures[num][1]))
+    plt.savefig('./futures/mse_plot/{}_mse_plot.png'.format(futures[num][1]))
     plt.show(block=False)
     plt.pause(1) # 1초후 자동으로 창 닫음
     plt.close()
 
 df_loss = df_loss.T  # 행-열 전환 transpose.
-df_loss.to_csv('./futures/datasets/futures_mse.csv', index=True)
+df_loss.to_csv('./futures/mse_plot/futures_mse.csv', index=True)
 
 
